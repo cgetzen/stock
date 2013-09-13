@@ -1,0 +1,48 @@
+import pylab
+
+class Draw:
+
+    lines = []
+
+    figure = pylab.figure()
+    subfigure = figure.add_subplot(111)
+
+    def buyorders(porder , price):
+	
+	marginalprofit = 0
+	bought = 0
+	bought_date = 0
+	sold_date = 0
+	sold = 0
+
+	for order in porder:
+	    bought_date = order[0]
+	    sold_date = order[1]
+	    bought_price = price[bought_date]
+	    sold_price = price[sold_date]
+
+	    shortorbuy = order[2] # 1: buy, -1: short 
+
+	    marginalprofit = (float(sold)-float(bought))*shortorbuy
+	    
+	    if marginalprofit > 0:
+		if order[2] == 1:
+		    subfigure.axvspan(boughtdate, solddate, color='green', alpha=0.5)
+		    subfigure.broken_barh([(boughtdate, solddate-boughtdate)], (float(sold), float(bought)-float(sold)), facecolors='green', alpha=0.5)
+		elif eachorder[2] == -1:
+		    subfigure.axvspan(boughtdate, solddate, color='blue', alpha=0.5)
+		    subfigure.broken_barh([(boughtdate,solddate-boughtdate)], (float(sold), float(bought)-float(sold)), facecolors='blue', alpha=0.5)
+	    if marginalprofit < 0:
+		if order[2] == 1:
+		    subfigure.axvspan(boughtdate, solddate, color='red', alpha=0.5)
+		    subfigure.broken_barh([(boughtdate, solddate-boughtdate)], (float(sold), float(bought)-float(sold)), facecolors='red', alpha=0.5)
+		if order[2] == -1:
+		    subfigure.axvspan(boughtdate, solddate, color='orange', alpha=0.5)
+		    subfigure.broken_barh([(boughtdate, solddate-boughtdate)], (float(sold), float(bought)-float(sold)), facecolors='orange', alpha=0.5)
+
+    def add_lines(lines):
+	for graph in lines:
+	    subfigure.plot(graph)
+
+    def show():
+	pylab.show()
